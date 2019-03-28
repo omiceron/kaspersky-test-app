@@ -4,6 +4,8 @@ import './style.css'
 import {defaultTableRowRenderer} from 'react-virtualized'
 import 'react-virtualized/styles.css'
 import {reduxForm} from 'redux-form'
+import {connect} from 'react-redux'
+import {compose} from 'redux'
 
 class Row extends Component {
 
@@ -16,6 +18,7 @@ class Row extends Component {
 
 }
 
-export default (form) => {
-  return reduxForm({form, destroyOnUnmount: false, asyncBlurFields: []})(Row)
-}
+export default compose(
+  connect((state, props) => ({form: props.rowData.id})),
+  reduxForm({destroyOnUnmount: false, asyncBlurFields: []}))
+(Row)

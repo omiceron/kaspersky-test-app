@@ -2,13 +2,13 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import './style.css'
 import {connect} from 'react-redux'
-import {booksSelector, createBooksSelector} from '../../selectors'
-import {deleteBook, sortBooks, editBook, saveBook} from '../../actions'
-import {Table, Column, AutoSizer, defaultTableRowRenderer} from 'react-virtualized'
+import {booksSelector} from '../../selectors'
+import {deleteBook, sortBooks, editBook, saveBook} from '../../actionCreators'
+import {Table, Column, AutoSizer} from 'react-virtualized'
 import 'react-virtualized/styles.css'
-import {reduxForm, Field} from 'redux-form'
+import {Field} from 'redux-form'
 
-import Row from './row'
+import Row from './Row'
 import ValidationField from '../ValidationField'
 
 class BooksList extends Component {
@@ -22,11 +22,6 @@ class BooksList extends Component {
 
   rowGetter = ({index}) => {
     return this.props.books[index]
-  }
-
-  handleRowClick = ({rowData}) => {
-    // const { toggleSelection } = this.props
-    // toggleSelection && toggleSelection(rowData.uid)
   }
 
   sort = ({sortBy, sortDirection}) => {
@@ -43,28 +38,22 @@ class BooksList extends Component {
       placeholder = {dataKey}
       component = {'input'}
     />
-    // return <input value = {cellData} type = 'text' onChange = {() => ({})}/>
   }
 
   editRenderer = ({cellData, rowData}) => {
     return <div>
-      {/*<input value = {rowData.editing ? 'save' : 'edit'} type = 'button' onClick = {this.startEdit(rowData)}/>*/}
       <input value = {rowData.editing ? 'save' : 'edit'} type = 'submit'/>
       <input value = 'delete' type = 'button' onClick = {() => this.props.deleteBook(rowData.id)}/>
     </div>
   }
 
   rowRenderer = (props) => {
-    console.log('new row')
-    const NewRow = Row(props.rowData.id)
-    return <NewRow {...props} onSubmit = {this.startEdit(props.rowData)}/>
+    return <Row {...props} onSubmit = {this.startEdit(props.rowData)}/>
   }
 
   startEdit = ({id, editing}) => (data) => {
-    if (editing) {
-      this.props.saveBook({...data, id})
-    }
-    else this.props.editBook(id, true)
+    if (editing) this.props.saveBook({...data, id})
+    else this.props.editBook(id)
   }
 
   render() {
@@ -80,7 +69,6 @@ class BooksList extends Component {
         width = {width}
         height = {300}
         sort = {this.sort}
-        onRowClick = {this.handleRowClick}
         rowRenderer = {this.rowRenderer}
       >
         <Column
@@ -157,15 +145,6 @@ class BooksList extends Component {
 
   }
 }
-
-// const createMapStateToProps = () => {
-//   const booksSelector = createBooksSelector()
-//   return (state, ownProps) => {
-//     return {
-//       books: booksSelector(state, ownProps)
-//     }
-//   }
-// }
 
 export default connect((state, ownProps) => ({
   books: booksSelector(state, ownProps)
