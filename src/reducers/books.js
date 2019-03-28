@@ -1,4 +1,5 @@
 import {Record, OrderedMap} from 'immutable'
+import {ADD, BOOKS, DELETE, EDIT, SAVE, SORT} from '../constants'
 
 function arrToMap(arr, ModelRecord) {
   return arr.reduce(
@@ -35,21 +36,20 @@ export default (books = new ReducerRecord(), action) => {
   const {type, payload, randomId} = action
 
   switch (type) {
-    case 'delete':
+    case BOOKS + DELETE:
       return books.deleteIn(['entities', payload.id])
 
-    case 'add':
+    case BOOKS + ADD:
       return books.setIn(['entities', randomId], new BookRecord({editing: true, id: randomId}))
 
-    case 'edit':
-      return books.setIn(['entities', payload.id, 'editing'], payload.editing)
+    case BOOKS + EDIT:
+      return books.setIn(['entities', payload.id, 'editing'], true)
 
-    case 'sort':
-      const unsorted = books.get('entities')
-      const sorted = unsorted.sortBy(book => book[payload.sortBy])
+    case BOOKS + SORT:
+      const sorted = books.get('entities').sortBy(book => book[payload.sortBy])
       return books.setIn(['entities'], sorted)
 
-    case 'save':
+    case BOOKS + SAVE:
       return books.mergeIn(['entities', payload.id], new BookRecord({...payload, editing: false}))
 
     default:

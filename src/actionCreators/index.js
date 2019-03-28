@@ -1,34 +1,36 @@
-export function addBook(payload) {
+import {ADD, BOOKS, DELETE, EDIT, SAVE, SORT} from '../constants'
+
+export function addBook() {
   return {
-    type: 'add',
+    type: BOOKS + ADD,
     generateId: true
   }
 }
 
 export function deleteBook(id) {
   return {
-    type: 'delete',
+    type: BOOKS + DELETE,
     payload: {id}
   }
 }
 
-export function editBook(id, editing) {
+export function editBook(id) {
   return {
-    type: 'edit',
-    payload: {id, editing}
+    type: BOOKS + EDIT,
+    payload: {id}
   }
 }
 
 export function sortBooks(sortBy) {
   return {
-    type: 'sort',
+    type: BOOKS + SORT,
     payload: {sortBy}
   }
 }
 
 export function saveBook(payload) {
   return {
-    type: 'save',
+    type: BOOKS + SAVE,
     payload
   }
 }
