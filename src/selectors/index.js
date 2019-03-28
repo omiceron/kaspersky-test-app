@@ -3,7 +3,6 @@ import {createSelector} from 'reselect'
 export const booksMapSelector = state => state.books.get('entities')
 export const booksLoadingSelector = state => state.books.loading
 export const filtersSelector = state => state.filters
-// export const commentMapSelector = state => state.comments.get('entities')
 export const idSelector = (_, props) => props.id
 
 export const booksSelector = createSelector(booksMapSelector, books => books.valueSeq().toArray())
@@ -18,11 +17,3 @@ export const filtratedBooksSelector = createSelector(booksSelector, filtersSelec
       (!from || !to || (published > from && published < to))
   })
 })
-
-export const articleSelector = createSelector(booksMapSelector, idSelector,
-  (articles, id) => articles.get(id)
-)
-
-// export const createCommentSelector = () => createSelector(commentMapSelector, idSelector, (comments, id) => {
-//   return comments.get(id)
-// })

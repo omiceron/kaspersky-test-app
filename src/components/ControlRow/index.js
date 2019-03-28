@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {addBook} from '../../actions'
+import {addBook} from '../../actionCreators'
 import './style.css'
 
 // todo add babel
@@ -37,7 +37,7 @@ class ControlRow extends Component {
 
     this.setState({
       data: null,
-      loading: false,
+      loading: false
     })
   }
 
@@ -62,37 +62,37 @@ class ControlRow extends Component {
     return (
       <div>
         <input type = 'button' value = 'New book' onClick = {this.props.addBook}/>
+        {/*
+                <input
+                  ref = {this.setRef}
+                  id = "image"
+                  type = "file"
+                  accept = "image/*"
+                  // capture = "camera"
+                  onChange = {this.handleFileChange}
+                />
 
-        <input
-          ref = {this.setRef}
-          id = "image"
-          type = "file"
-          accept = "image/*"
-          // capture = "camera"
-          onChange = {this.handleFileChange}
-        />
+                <div
+                  // className = {previewClasses}
+                  className = {'preview'}
+                  style = {backgroundImage}
+                  onClick = {this.handlePreviewClick}
+                >
+                  {!data && !loading &&
+                  <label htmlFor = "image">
+                    Click to capture
+                  </label>
+                  }
 
-        <div
-          // className = {previewClasses}
-          className = {'preview'}
-          style = {backgroundImage}
-          onClick = {this.handlePreviewClick}
-        >
-          {!data && !loading &&
-          <label htmlFor = "image">
-            Click to capture
-          </label>
-          }
+                  {loading &&
+                  <span>Loading...</span>
+                  }
+                </div>
 
-          {loading &&
-          <span>Loading...</span>
-          }
-        </div>
-
-        <button type = 'button' onClick = {this.handleClearClick}>
-          Clear Image
-        </button>
-
+                <button type = 'button' onClick = {this.handleClearClick}>
+                  Clear Image
+                </button>
+        */}
       </div>
     )
   }
