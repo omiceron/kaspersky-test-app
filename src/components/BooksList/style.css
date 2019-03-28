@@ -1,0 +1,11 @@
+.books-list-container {
+    background-color: indianred;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.auto-sizer-wrapper {
+    flex: 1 1 auto;
+}
